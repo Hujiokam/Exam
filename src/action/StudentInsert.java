@@ -19,6 +19,7 @@ import bean.Teacher;  // ログインユーザーのモデルクラス（必要�
 //aaaaa
 ///bbbb
 ///cccc
+///dddd
 @WebServlet("/action/studentinsert")
 public class StudentInsert extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
