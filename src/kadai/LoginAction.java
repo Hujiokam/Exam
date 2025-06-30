@@ -1,5 +1,5 @@
 package kadai;
-
+//コメント
 import java.io.IOException;
 
 import javax.servlet.ServletException;
