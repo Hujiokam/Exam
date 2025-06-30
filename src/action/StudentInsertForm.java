@@ -47,7 +47,7 @@ public class StudentInsertForm extends HttpServlet {
       Connection con = ds.getConnection();
 
       PreparedStatement st = con.prepareStatement(
-        "SELECT class_num FROM class_num WHERE scholl_cd = ? ORDER BY class_num"
+        "SELECT class_num FROM class_num WHERE school_cd = ? ORDER BY class_num"
       );
       st.setString(1, teacher.getSchool_cd());
       ResultSet rs = st.executeQuery();

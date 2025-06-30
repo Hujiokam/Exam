@@ -62,7 +62,7 @@ public class StudentUpdateForm extends HttpServlet {
 
       // クラス一覧を取得（ログインユーザーの school_cd に一致するもの）
       PreparedStatement st2 = con.prepareStatement(
-        "SELECT class_num FROM class_num WHERE scholl_cd = ? ORDER BY class_num"
+        "SELECT class_num FROM class_num WHERE school_cd = ? ORDER BY class_num"
       );
       st2.setString(1, teacher.getSchool_cd());
       ResultSet rs2 = st2.executeQuery();
