@@ -74,6 +74,26 @@ public class SubjectDAO extends DAO {
         }
     }
 
+	 // 科目情報更新メソッド
+	    public void update(Subject subject) {
+	        String sql = "UPDATE SUBJECT SET NAME = ?, SCHOOL_CD = ? WHERE CD = ?";
+	        try (Connection con = getConnection();
+	             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	            stmt.setString(1, subject.getName());
+	            stmt.setString(2, subject.getSchoolCode());
+	            stmt.setString(3, subject.getCode());
+
+	            int count = stmt.executeUpdate();
+	            System.out.println("更新件数: " + count);
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+
+
     //科目削除
     public void delete(String subjectCd) {
         String sql = "DELETE FROM subject WHERE cd = ?";

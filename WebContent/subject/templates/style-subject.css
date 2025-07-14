@@ -1,0 +1,132 @@
+/* 科目コード入力欄だけ別指定 */
+
+.subject-menu {
+    margin-left: 220px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.subject-heading {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: left;
+    background-color: #dddddd;
+    padding: 10px;
+}
+
+
+#subject_cd {
+  border: none;
+  background-color: transparent;
+  color: #333;
+  width: 250px;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  margin-bottom: 0;
+}
+
+
+/* 入力欄の共通スタイル */
+input[type="text"] {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 6px 10px;
+  color: #333;
+  width: 700px;
+  box-sizing: border-box;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* ラベルの左寄せ */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* フォーム全体の左寄せ */
+form, .form-container, .student-menu {
+  text-align: left !important;
+  border: none;
+  padding-left: 20px; /* 少し左に余白 */
+}
+
+
+
+/* ボタンを縦並び＆左寄せ */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.button-group > * + * {
+  margin-top: 10px;
+}
+
+.button-group button[type="submit"] {
+  background-color: blue;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  padding: 8px 10px;
+}
+
+.subject {
+  text-align: left !important;
+  margin: 0 !important;
+  padding-left: 20px;
+}
+
+.label-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 5px 10px;
+  display: inline-block;
+  width: 750px;
+  font-weight: bold;
+}
+
+.subject-heading {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: left;
+    background-color: #dddddd;
+    padding: 10px;
+
+}
+
+.subject-update-menu form {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+/* 1. 赤枠（invalid時のデフォルトスタイル）を打ち消す */
+input:invalid {
+  box-shadow: none;
+  outline: none;
+}
+
+/* 2. フォーカス時にも赤い境界線が出ないように */
+input:invalid:focus {
+  border-color: gray; /* 通常と同じ枠線 */
+}
+
+/* 3. ChromeなどのブラウザのバリデーションUIを抑制（全体） */
+input::-webkit-validation-bubble-message,
+input::-webkit-validation-message {
+  display: none;
+}
+
+.subject-menu a {
+  display: block;
+  text-align: left;
+  margin-left: 20px;
+}
