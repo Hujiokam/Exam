@@ -1,0 +1,176 @@
+/* 科目登録css */
+
+/*科目リストホーム(線)*/
+.subject-table {
+  width: calc(100% - 220px); /* 左メニュー分よけて幅いっぱいに */
+  margin-left: 220px;
+  border-collapse: collapse;
+  font-size: 16px;
+  text-align: left;
+}
+.subject-table th, .subject-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc; /* 横線だけ */
+}
+.subject-table th {
+
+  font-weight: bold;
+}
+
+
+
+/*科目リストホーム(科目管理文字)*/
+.subject-menu {
+    margin-left: 220px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.subject-heading {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: left;
+    background-color: #dddddd;
+    padding: 10px;
+}
+
+
+
+/*科目リストホーム(新規登録)*/
+.subjectcreate {
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  float: right;
+}
+
+
+
+/*科目リストホーム(データ文字)*/
+.subject-table {
+  width: 75%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+.subject-table th {
+  font-weight: bold;
+  color: #333;
+}
+
+
+
+
+
+/* subject-create(新規登録画面) */
+
+.subjectcrate-menu {
+    margin-left: 220px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.subject-form {
+  margin: 0;
+  padding: 0;
+  border: none; /* 枠を消す */
+}
+
+.subject-form .form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.subject-form label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.subject-form input[type="text"] {
+  display: block;
+  width: 300px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.subject-form input[type="submit"] {
+  background-color: #007bff; /* 青色 */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.subject-form input[type="submit"]:hover {
+  background-color: #0056b3; /* 濃い青でホバー時変化 */
+}
+
+.back-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 10px;
+  display: inline-block;
+  float: left;
+}
+
+
+
+
+
+/* subject-createdone(科目情報登録画面) */
+
+.subjectcrate-menu {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.completion-message {
+      background-color: #8FBC8F;
+      margin-top: 40px;
+}
+
+.button-group {
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  width: 400px;              /* ← 左寄せに見えるよう制限 */
+  margin-left: 0;            /* ← 念のため明示的に左寄せ */
+}
+
+
+
+
+
+/*subject_delete.jsp(科目削除画面)*/
+/* 削除確認画面 専用レイアウト */
+.subject-menu-delete {
+  max-width: 700px;
+  margin: 40px 0;  /* 左寄せにする */
+  padding: 30px;
+  border-radius: 6px;
+}
+
+/* フォームのリセット(囲い枠なし) */
+.subject-menu-delete form {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+/* 削除ボタン */
+.subject-menu-delete button[type="submit"] {
+  background-color: #d9534f;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 4px;
+}

@@ -15,11 +15,10 @@
   </div>
 
   <div class="card card-3">
-    <a href="subjectManage.action">科目管理</a>
+    <a href="${pageContext.request.contextPath}/subject/SubjectList.action">科目管理</a>
+
   </div>
 
 </div>
 
 </div>
-
-

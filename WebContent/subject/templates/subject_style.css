@@ -61,37 +61,14 @@ form{
 	background-color: #ccc;
 }
 
-.logout{
-	background-color: #669966;
-}
-
-.login-link{
-	display: block;
-	text-align: left;
-}
-
 .user-info {
 	text-align: right;
+	font-size: 14px;
 }
 
 .header-title {
     font-size: 24px;
     font-weight: bold;
-}
-
-.user-info {
-    font-size: 14px;
-}
-
-.logout-log{
-	background-color: #99CC99;
-}
-
-.logout-title{
-	text-align: left;
-	background-color: #EEEEEE;
-	font-size: 20px;
-	margin-bottom: 10px;
 }
 
 /* 左メニュー（menu-tab.jsp） */
@@ -237,23 +214,4 @@ form{
   margin-left: 220px; /* 左メニュー分よける */
   text-align: left;
   padding: 10px 20px;
-}
-
-/* 学生一覧テーブルのスタイル */
-.student-table {
-  width: calc(100% - 220px); /* 左メニュー分よけて幅いっぱいに */
-  margin-left: 220px;
-  border-collapse: collapse;
-  font-size: 16px;
-  text-align: left;
-}
-
-.student-table th, .student-table td {
-  padding: 10px;
-  border-bottom: 1px solid #ccc; /* 横線だけ */
-}
-
-.student-table th {
-
-  font-weight: bold;
 }

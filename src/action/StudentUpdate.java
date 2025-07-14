@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-@WebServlet("/action/studentupdate")
+@WebServlet("/action/StudentUpdate.action")
 public class StudentUpdate extends HttpServlet {
+
+  @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
@@ -33,7 +35,7 @@ public class StudentUpdate extends HttpServlet {
       DataSource ds = (DataSource) ic.lookup("java:/comp/env/jdbc/java-kadai");
       Connection con = ds.getConnection();
 
-      // 更新SQLの実行（ent_yearは変更不可のため除外）
+      // 更新SQLの実行
       PreparedStatement st = con.prepareStatement(
         "UPDATE student SET name = ?, class_num = ?, is_attend = ? WHERE no = ?"
       );
@@ -56,5 +58,12 @@ public class StudentUpdate extends HttpServlet {
 
     request.setAttribute("message", message);
     request.getRequestDispatcher("/kadai/studentupdateresult.jsp").forward(request, response);
+  }
+
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    // GETリクエストが来たときは POST に転送
+    doPost(request, response);
   }
 }

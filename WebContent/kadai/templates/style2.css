@@ -1,0 +1,82 @@
+/* 学生情報変更 */
+/*外枠なくす*/
+.studentupdate-delete form {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.student-update-menu {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+.student-heading {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: left;
+    padding: 10px;
+}
+
+.student-form {
+  margin: 0;
+  padding: 0;
+  border: none; /* 枠を消す */
+}
+
+.student-form .form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.student-form input[type="text"],
+.student-form select {
+  border-radius: 4px;
+  padding: 6px 8px;
+  width: 700px;
+  border: 1px solid #ccc;
+}
+
+.student-form input[type="submit"] {
+  background-color: #007bff; /* 青色 */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.student-form input[type="submit"]:hover {
+  background-color: #0056b3; /* 濃い青でホバー時変化 */
+}
+
+.back-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 10px;
+  display: inline-block;
+  float: left;
+}
+
+.studentupdateresult-change {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+.completion-message {
+    background-color: #8FBC8F; /* ←ここをより明るい or 好みの緑色に変更 */
+    margin-top: 40px;
+    padding: 10px;
+    border-radius: 5px;
+}
+.student-list-link {
+    margin-top: 20px;
+    text-align: left;
+    float: left; /* 左寄せ */
+    text-decoration: none;
+}

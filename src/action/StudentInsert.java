@@ -13,65 +13,81 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import bean.Teacher;  // ログインユーザーのモデルクラス（必要に応じて変更）
+import bean.Teacher;
 
-
-//aaaaa
-///bbbb
-///cccc
-///dddd
 @WebServlet("/action/studentinsert")
 public class StudentInsert extends HttpServlet {
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
 
-    request.setCharacterEncoding("UTF-8");
+    // GETリクエストに対応（入力フォームを表示）
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-    HttpSession session = request.getSession();
-    Teacher teacher = (Teacher) session.getAttribute("teacher");
+        // セッションチェック（ログインしていない場合はログイン画面にリダイレクト）
+        HttpSession session = request.getSession();
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
 
-    if (teacher == null) {
-      response.sendRedirect("login.jsp");
-      return;
+        if (teacher == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        // 入力フォームのJSPに転送
+        request.getRequestDispatcher("/kadai/studentinsert.jsp").forward(request, response);
     }
 
-    String No = request.getParameter("no");
-    String Name = request.getParameter("name");
-    int entYear = Integer.parseInt(request.getParameter("ent_year"));
-    String classNum = request.getParameter("class_num");
-    boolean isAttend = "1".equals(request.getParameter("is_attend"));
-    String schoolCd = teacher.getSchool_cd(); // ← teacherから取得
+    // POSTリクエストに対応（学生データの登録処理）
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-    String message;
+        request.setCharacterEncoding("UTF-8");
 
-    try {
-      InitialContext ic = new InitialContext();
-      DataSource ds = (DataSource) ic.lookup("java:/comp/env/jdbc/java-kadai");
-      Connection con = ds.getConnection();
+        HttpSession session = request.getSession();
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
 
-      PreparedStatement st = con.prepareStatement(
-        "INSERT INTO STUDENT (no, name, ent_year, class_num, is_attend, school_cd) " +
-        "VALUES (?, ?, ?, ?, ?, ?)"
-      );
-      st.setString(1, No);
-      st.setString(2, Name);
-      st.setInt(3, entYear);
-      st.setString(4, classNum);
-      st.setBoolean(5, isAttend);
-      st.setString(6, schoolCd);  // ← 追加部分
+        if (teacher == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
 
-      int rows = st.executeUpdate();
-      message = (rows > 0) ? "登録が完了しました。" : "登録に失敗しました。";
+        String No = request.getParameter("no");
+        String Name = request.getParameter("name");
+        int entYear = Integer.parseInt(request.getParameter("ent_year"));
+        String classNum = request.getParameter("class_num");
+        boolean isAttend = "1".equals(request.getParameter("is_attend"));
+        String schoolCd = teacher.getSchool_cd(); // ログイン中の教員の学校コード
 
-      st.close();
-      con.close();
+        String message;
 
-    } catch (Exception e) {
-      e.printStackTrace();
-      message = "登録中にエラーが発生しました。<br>" + e.getMessage();
+        try {
+            InitialContext ic = new InitialContext();
+            DataSource ds = (DataSource) ic.lookup("java:/comp/env/jdbc/java-kadai");
+            Connection con = ds.getConnection();
+
+            PreparedStatement st = con.prepareStatement(
+                "INSERT INTO STUDENT (no, name, ent_year, class_num, is_attend, school_cd) " +
+                "VALUES (?, ?, ?, ?, ?, ?)"
+            );
+            st.setString(1, No);
+            st.setString(2, Name);
+            st.setInt(3, entYear);
+            st.setString(4, classNum);
+            st.setBoolean(5, isAttend);
+            st.setString(6, schoolCd);
+
+            int rows = st.executeUpdate();
+            message = (rows > 0) ? "登録が完了しました。" : "登録に失敗しました。";
+
+            st.close();
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            message = "登録中にエラーが発生しました。<br>" + e.getMessage();
+        }
+
+        request.setAttribute("message", message);
+        request.getRequestDispatcher("/kadai/studentinsertresult.jsp").forward(request, response);
     }
-
-    request.setAttribute("message", message);
-    request.getRequestDispatcher("/kadai/studentinsertresult.jsp").forward(request, response);
-  }
 }

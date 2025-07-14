@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 
 import bean.Teacher;
 
-@WebServlet("/kadai/studentupdateform")
+@WebServlet("/kadai/StudentUpdateForm.action")
 public class StudentUpdateForm extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
