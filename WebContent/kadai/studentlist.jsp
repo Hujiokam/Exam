@@ -12,7 +12,9 @@
 
 <div class="student-menu">
   <h2 class="student-heading">学生管理</h2>
+  <div class="student-header-actions">
   <a href="<%= request.getContextPath() %>/kadai/studentinsertform" class="studentcreate">新規登録</a>
+  </div>
 
 <div class="student-search-box">
   <form action="StudentList.action" class="studentlist" method="post">
