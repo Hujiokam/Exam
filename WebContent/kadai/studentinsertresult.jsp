@@ -1,14 +1,13 @@
 <%@page contentType="text/html; charset=UTF-8" %>
 <%@include file="../header.html" %>
-<%@include file="menu.jsp" %>
-<link rel="stylesheet" href="templates/style.css">
-<link rel="stylesheet" href="<%= request.getContextPath() %>/kadai/templates/style2.css">
+<%@include file="menu-tab.jsp" %>
+<link rel="stylesheet" href="<%= request.getContextPath()%>/kadai/templates/style.css">
+<link rel="stylesheet" href="<%= request.getContextPath()%>/kadai/templates/student_style.css">
 
-<div class="content">
-  <h2 class="menu-title">登録結果</h2>
-  <p>${message}</p>
-  <a href="<%= request.getContextPath() %>/action/studentlist">学生一覧に戻る</a>
+<div class="student-menu">
+  <h2 class="student-heading">学生管理</h2>
+   <p class="label-success">${message}</p><br>
+
   <a href="<%= request.getContextPath() %>/action/studentinsert">戻る</a>
+  <a href="${pageContext.request.contextPath}/kadai/StudentList.action">学生一覧</a>
 </div>
-
-<%@include file="../footer.html" %>

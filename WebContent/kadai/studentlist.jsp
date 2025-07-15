@@ -4,7 +4,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="bean.Student" %>
 
-<link rel="stylesheet" href="templates/style.css">
+<link rel="stylesheet" href="../kadai/templates/style.css">
+<link rel="stylesheet" href="../kadai/templates/student_style.css">
 <%@include file="../header.html" %>
 
 <jsp:include page="menu-tab.jsp" />
@@ -13,9 +14,10 @@
   <h2 class="student-heading">学生管理</h2>
   <a href="<%= request.getContextPath() %>/kadai/studentinsertform" class="studentcreate">新規登録</a>
 
+<div class="student-search-box">
   <form action="StudentList.action" class="studentlist" method="post">
     <div class="labellabel">
-      <label for="year">入学年度</label>
+      <label for="year">入学年度</label><br>
       <select name="f1" id="year">
         <option value="---">-------</option>
         <%
@@ -32,7 +34,7 @@
     </div>
 
     <div class="labellabel">
-      <label for="class">クラス</label>
+      <label for="class">クラス</label><br>
       <select name="f2" id="class">
         <option value="---">-------</option>
         <%
@@ -55,6 +57,7 @@
 
     <button type="submit">絞込み</button>
   </form>
+</div>
 </div>
 
 <div class="search-result">
@@ -81,10 +84,7 @@
       <td><%= s.getName() %></td>
       <td><%= s.getClassNum() %></td>
       <td><%= s.isAttend() ? "○" : "×" %></td>
-      <td>
-  		<a href="<%= request.getContextPath() %>/kadai/StudentUpdateForm.action?no=<%= s.getNo() %>">変更</a>
-	  </td>
-
+      <td><a href="${pageContext.request.contextPath}/action/StudentUpdate.action">変更</a></td>
     </tr>
   <%
       }
