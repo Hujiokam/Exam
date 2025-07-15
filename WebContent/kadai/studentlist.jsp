@@ -84,7 +84,8 @@
       <td><%= s.getName() %></td>
       <td><%= s.getClassNum() %></td>
       <td><%= s.isAttend() ? "○" : "×" %></td>
-      <td><a href="${pageContext.request.contextPath}/action/StudentUpdate.action">変更</a></td>
+      <td><a href="<%= request.getContextPath() %>/kadai/StudentUpdateForm.action?no=<%= s.getNo() %>">変更</a></td>
+
     </tr>
   <%
       }
