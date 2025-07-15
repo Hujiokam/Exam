@@ -6,8 +6,8 @@
   	<li><a href="${pageContext.request.contextPath}/kadai/StudentList.action">学生管理</a></li>
     <li>成績管理
       <ul class="submenu">
-        <li><a href="scoreRegister.action">成績登録</a></li>
-        <li><a href="scoreView.action">成績参照</a></li>
+        <li><a href="${pageContext.request.contextPath}/searchScore.action">成績登録</a></li>
+        <li><a href="${pageContext.request.contextPath}/SearchScore">成績参照</a></li>
       </ul>
     </li>
     <li><a href="${pageContext.request.contextPath}/subject/SubjectList.action">科目管理</a></li>
