@@ -5,7 +5,7 @@
   <div class="card-container">
 
   <div class="card card-1">
-    <a href="StudentList.action">学生管理</a>
+    <a href="${pageContext.request.contextPath}/kadai/StudentList.action">学生管理</a>
   </div>
 
   <div class="card card-2">
