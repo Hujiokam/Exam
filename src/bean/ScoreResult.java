@@ -7,9 +7,15 @@ public class ScoreResult {
     private String year;
     private String subject;
 
-    private int score1;
-    private int score2;
-    private int score3;
+    private String subjectCode; // ←追加
+    private String subjectName; // ←追加（科目名）
+
+    private Integer score1;
+    private Integer score2;
+    private Integer score3;
+
+    private Integer times;      // ←必要であれば追加（試験回数）
+    private Integer point;      // ←必要であれば追加（得点）
 
     // --- getter & setter ---
     public String getStudentId() { return studentId; }
@@ -27,12 +33,24 @@ public class ScoreResult {
     public String getSubject() { return subject; }
     public void setSubject(String subject) { this.subject = subject; }
 
-    public int getScore1() { return score1; }
-    public void setScore1(int score1) { this.score1 = score1; }
+    public String getSubjectCode() { return subjectCode; }
+    public void setSubjectCode(String subjectCode) { this.subjectCode = subjectCode; }
 
-    public int getScore2() { return score2; }
-    public void setScore2(int score2) { this.score2 = score2; }
+    public String getSubjectName() { return subjectName; }  // ←追加
+    public void setSubjectName(String subjectName) { this.subjectName = subjectName; }
 
-    public int getScore3() { return score3; }
-    public void setScore3(int score3) { this.score3 = score3; }
+    public Integer getScore1() { return score1; }
+    public void setScore1(Integer score1) { this.score1 = score1; }
+
+    public Integer getScore2() { return score2; }
+    public void setScore2(Integer score2) { this.score2 = score2; }
+
+    public Integer getScore3() { return score3; }
+    public void setScore3(Integer score3) { this.score3 = score3; }
+
+    public Integer getTimes() { return times; }
+    public void setTimes(Integer times) { this.times = times; }
+
+    public Integer getPoint() { return point; }
+    public void setPoint(Integer point) { this.point = point; }
 }

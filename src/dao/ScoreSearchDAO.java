@@ -1,5 +1,6 @@
 package dao;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ public class ScoreSearchDAO {
     private static final String USER = "sa";
     private static final String PASS = "";
 
-    // 🔍 科目別検索（1〜3回をまとめる）
+    // 科目別検索（1〜3回の得点をまとめる）
     public List<ScoreResult> searchBySubject(String year, String classNum, String subjectCode) {
         List<ScoreResult> list = new ArrayList<>();
 
@@ -96,7 +97,7 @@ public class ScoreSearchDAO {
         return list;
     }
 
-    // 🔍 学生番号による個別検索（すべての科目・回数をまとめる）
+    // 学生番号による検索（科目コード・科目名・回数・点数をまとめて取得）
     public List<ScoreResult> searchByStudentId(String studentId) {
         List<ScoreResult> list = new ArrayList<>();
 
@@ -108,20 +109,19 @@ public class ScoreSearchDAO {
         }
 
         String sql =
-        		"SELECT s.NO AS student_id, s.NAME, s.CLASS_NUM AS class_num, " +
-        		"s.ENT_YEAR AS ent_year, sub.NAME AS subject_name, " +
-        		"t.NO AS times, t.POINT AS score " +
-        		"FROM STUDENT s " +
-                "LEFT JOIN TEST t ON s.NO = t.STUDENT_NO " +
-                "LEFT JOIN SUBJECT sub ON t.SUBJECT_CD = sub.CD " +
-                "WHERE s.NO = ? " +
-                "ORDER BY sub.CD, t.NO";
-
+            "SELECT s.NO AS student_id, s.NAME, s.CLASS_NUM AS class_num, " +
+            "s.ENT_YEAR AS ent_year, sub.NAME AS subject_name, sub.CD AS subject_code, " +
+            "t.NO AS times, t.POINT AS score " +
+            "FROM STUDENT s " +
+            "LEFT JOIN TEST t ON s.NO = t.STUDENT_NO " +
+            "LEFT JOIN SUBJECT sub ON t.SUBJECT_CD = sub.CD " +
+            "WHERE s.NO = ? " +
+            "ORDER BY sub.CD, t.NO";
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASS);
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, studentId);
+            ps.setString(1, studentId.trim());
             ResultSet rs = ps.executeQuery();
 
             String currentSubject = null;
@@ -129,6 +129,9 @@ public class ScoreSearchDAO {
 
             while (rs.next()) {
                 String subject = rs.getString("subject_name");
+                if (subject == null) subject = "-";
+
+                String subjectCode = rs.getString("subject_code");
 
                 if (!subject.equals(currentSubject)) {
                     current = new ScoreResult();
@@ -137,6 +140,7 @@ public class ScoreSearchDAO {
                     current.setClassName(rs.getString("class_num"));
                     current.setYear(rs.getString("ent_year"));
                     current.setSubject(subject);
+                    current.setSubjectCode(subjectCode);
                     list.add(current);
                     currentSubject = subject;
                 }

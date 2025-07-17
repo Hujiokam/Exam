@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>得点管理システム</title>
   <style>
-    body {
+   body {
       margin: 0 auto;
       padding: 0 100px 100px 100px;
       font-family: sans-serif;
@@ -24,6 +24,7 @@
       text-align: right;
       padding: 10px 20px;
       font-size: 14px;
+      background-color: #D7EEFF;
     }
     .logout a {
       color: #007bff;
@@ -58,6 +59,12 @@
       flex-wrap: nowrap;
       margin-bottom: 20px;
     }
+    /* 学生番号フォームだけ別クラスで縦中央揃え */
+    .form-row.studentId-row {
+      flex-wrap: nowrap;
+      gap: 8px;
+      align-items: center;
+    }
     .form-group {
       display: flex;
       flex-direction: column;
@@ -75,7 +82,9 @@
     }
     .form-button {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
+      height: 36px;
+      margin-top: 22px;
     }
     button {
       padding: 8px 16px;
@@ -91,11 +100,6 @@
     }
     button:hover {
       background-color: #b0b0b0;
-    }
-    .notice {
-      color: blue;
-      font-size: 13px;
-      margin-top: 10px;
     }
     table {
       border-collapse: collapse;
@@ -113,7 +117,61 @@
     th {
       background-color: #eeeeee;
     }
+    #search-error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+      display: none;
+    }
+    /* 省略（元のスタイルのまま） */
+    #search-error, #studentId-error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+      display: none;
+    }
   </style>
+
+  <script>
+    function validateSearchForm() {
+      const year = document.querySelector('select[name="year"]').value;
+      const classNum = document.querySelector('select[name="classNum"]').value;
+      const subjectCode = document.querySelector('select[name="subjectCode"]').value;
+      const studentId = document.querySelector('input[name="studentId"]').value.trim();
+      const errorBox = document.getElementById("search-error");
+
+      // 学生番号入力されていればOK
+      if (studentId.length > 0) {
+        errorBox.style.display = "none";
+        return true;
+      }
+
+      if (!year || !classNum || !subjectCode) {
+        errorBox.style.display = "block";
+        return false;
+      } else {
+        errorBox.style.display = "none";
+        return true;
+      }
+    }
+
+    // ★ ここから追加 ★
+    function validateStudentIdForm() {
+      const studentIdInput = document.querySelector('input[name="studentId"]');
+      const studentId = studentIdInput.value.trim();
+      const errorBox = document.getElementById("studentId-error");
+
+      if (studentId === "") {
+        errorBox.style.display = "block";
+        studentIdInput.focus();
+        return false;
+      } else {
+        errorBox.style.display = "none";
+        return true;
+      }
+    }
+    // ★ ここまで追加 ★
+  </script>
 </head>
 <body>
 
@@ -141,15 +199,15 @@
     <div class="content">
       <div class="title">成績参照</div>
 
-      <!-- 検索フォーム -->
-      <form action="${pageContext.request.contextPath}/SearchScore" method="get">
+      <!-- 科目別検索フォーム -->
+      <form action="${pageContext.request.contextPath}/SearchScore" method="get" onsubmit="return validateSearchForm();">
         <div class="form-row">
           <div class="form-group">
             <label>入学年度</label>
             <select name="year">
               <option value="">---</option>
               <c:forEach begin="2015" end="2024" var="y">
-                <option value="${y}" ${param.year == y ? "selected" : ""}>${y}</option>
+                <option value="${y}" <c:if test="${param.year == y}">selected</c:if>>${y}</option>
               </c:forEach>
             </select>
           </div>
@@ -157,16 +215,16 @@
             <label>クラス</label>
             <select name="classNum">
               <option value="">---</option>
-              <option value="121" ${param.classNum == '121' ? 'selected' : ''}>121</option>
-              <option value="131" ${param.classNum == '131' ? 'selected' : ''}>131</option>
+              <option value="121" <c:if test="${param.classNum == '121'}">selected</c:if>>121</option>
+              <option value="131" <c:if test="${param.classNum == '131'}">selected</c:if>>131</option>
             </select>
           </div>
           <div class="form-group">
             <label>科目</label>
             <select name="subjectCode">
               <option value="">---</option>
-              <option value="A02" ${param.subjectCode == 'A02' ? 'selected' : ''}>国語</option>
-              <option value="B01" ${param.subjectCode == 'B01' ? 'selected' : ''}>Java</option>
+              <option value="A02" <c:if test="${param.subjectCode == 'A02'}">selected</c:if>>国語</option>
+              <option value="B01" <c:if test="${param.subjectCode == 'B01'}">selected</c:if>>Java</option>
             </select>
           </div>
           <div class="form-button">
@@ -175,64 +233,98 @@
         </div>
       </form>
 
-      <form action="${pageContext.request.contextPath}/SearchScore" method="get">
-        <div class="form-row">
+      <!-- JS用エラーメッセージ -->
+      <div id="search-error">
+        ※入学年度・クラス・科目をすべて選択してください。
+      </div>
+
+      <!-- 学生番号検索フォーム -->
+      <form action="${pageContext.request.contextPath}/SearchScore" method="get" onsubmit="return validateStudentIdForm();">
+        <div class="form-row studentId-row">
           <div class="form-group">
             <label>学生番号</label>
-            <input type="text" name="studentId" placeholder="学生番号を入力してください" style="width: 200px;">
+            <input type="text" name="studentId" placeholder="学生番号を入力してください" value="${param.studentId != null ? param.studentId : ''}">
           </div>
           <div class="form-button">
             <button type="submit">検索</button>
           </div>
         </div>
+        <div id="studentId-error">
+          ※学生番号を入力してください。
+        </div>
       </form>
 
-      <div class="notice">※検索条件を指定せずに検索した場合は全件が表示されます。</div>
+      <!-- 検索結果表示 -->
 
-      <!-- 検索結果 -->
-      <c:if test="${not empty scoreList}">
-        <div class="title">検索結果（科目：${subjectName}）</div>
-        <table>
-          <colgroup>
-            <col style="width: 100px;">
-            <col style="width: 100px;">
-            <col style="width: 120px;">
-            <col style="width: 150px;">
-            <col style="width: 80px;">
-            <col style="width: 80px;">
-            <col style="width: 80px;">
-          </colgroup>
-          <thead>
-            <tr>
-              <th>入学年度</th>
-              <th>クラス</th>
-              <th>学生番号</th>
-              <th>氏名</th>
-              <th>1回目</th>
-              <th>2回目</th>
-              <th>3回目</th>
-            </tr>
-          </thead>
-          <tbody>
-            <c:forEach var="row" items="${scoreList}">
-              <tr>
-                <td>${row.year}</td>
-                <td>${row.className}</td>
-                <td>${row.studentId}</td>
-                <td>${row.name}</td>
-                <td><c:out value="${row.score1}" default="-" /></td>
-                <td><c:out value="${row.score2}" default="-" /></td>
-                <td><c:out value="${row.score3}" default="-" /></td>
-              </tr>
-            </c:forEach>
-          </tbody>
-        </table>
-      </c:if>
+      <c:choose>
+        <c:when test="${not empty param.studentId}">
+          <c:if test="${not empty scoreList}">
+            <div class="title">検索結果（学生番号検索）</div>
+            <table>
+              <thead>
+                <tr>
+                  <th>科目コード</th>
+                  <th>科目名</th>
+                  <th>1回目</th>
+                  <th>2回目</th>
+                  <th>3回目</th>
+                </tr>
+              </thead>
+              <tbody>
+                <c:forEach var="score" items="${scoreList}">
+                  <tr>
+                    <td><c:out value="${score.subjectCode}" /></td>
+                    <td><c:out value="${score.subject}" /></td>
+                    <td><c:out value="${score.score1 != null && score.score1 != 0 ? score.score1 : '-'}" /></td>
+                    <td><c:out value="${score.score2 != null && score.score2 != 0 ? score.score2 : '-'}" /></td>
+                    <td><c:out value="${score.score3 != null && score.score3 != 0 ? score.score3 : '-'}" /></td>
+                  </tr>
+                </c:forEach>
+              </tbody>
+            </table>
+          </c:if>
+          <c:if test="${empty scoreList}">
+            <p style="color:red;">※該当する成績データがありませんでした。</p>
+          </c:if>
+        </c:when>
+        <c:otherwise>
+          <c:if test="${not empty scoreList}">
+            <div class="title">検索結果（科目：${subjectName}）</div>
+            <table>
+              <thead>
+                <tr>
+                  <th>入学年度</th>
+                  <th>クラス</th>
+                  <th>学生番号</th>
+                  <th>氏名</th>
+                  <th>1回目</th>
+                  <th>2回目</th>
+                  <th>3回目</th>
+                </tr>
+              </thead>
+              <tbody>
+                <c:forEach var="row" items="${scoreList}">
+                  <tr>
+                    <td><c:out value="${row.year}" /></td>
+                    <td><c:out value="${row.className}" /></td>
+                    <td><c:out value="${row.studentId}" /></td>
+                    <td><c:out value="${row.name}" /></td>
+                    <td><c:out value="${row.score1 != null && row.score1 != 0 ? row.score1 : '-'}" /></td>
+                    <td><c:out value="${row.score2 != null && row.score2 != 0 ? row.score2 : '-'}" /></td>
+                    <td><c:out value="${row.score3 != null && row.score3 != 0 ? row.score3 : '-'}" /></td>
+                  </tr>
+                </c:forEach>
+              </tbody>
+            </table>
+          </c:if>
+          <c:if test="${empty scoreList && (not empty param.subjectCode || not empty param.year)}">
+            <p style="color:red;">※該当する成績データがありませんでした。</p>
+          </c:if>
+        </c:otherwise>
+      </c:choose>
 
-      <c:if test="${empty scoreList && param.subjectCode != null || param.studentId != null}">
-        <p>※該当する成績データがありませんでした。</p>
-      </c:if>
     </div>
   </div>
+
 </body>
 </html>

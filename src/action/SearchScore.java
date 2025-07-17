@@ -29,14 +29,31 @@ public class SearchScore extends HttpServlet {
         String subjectCode = request.getParameter("subjectCode");
         String studentId = request.getParameter("studentId");
 
-        List<ScoreResult> scoreList = dao.searchBySubject(year, classNum, subjectCode);
+        List<ScoreResult> scoreList = null;
+        String subjectName = "";
 
-        // 科目コード → 科目名
-        String subjectName = "個別検索";
-        if ("A02".equals(subjectCode)) {
-            subjectName = "国語";
-        } else if ("B01".equals(subjectCode)) {
-            subjectName = "Java";
+        // 学生番号検索があれば優先
+        if (studentId != null && !studentId.trim().isEmpty()) {
+            scoreList = dao.searchByStudentId(studentId.trim());
+            subjectName = "学生番号検索結果";
+            request.setAttribute("subjectCodeVisible", true);  // JSPで科目コード列表示用フラグ
+        } else if (year != null && !year.isEmpty() &&
+                   classNum != null && !classNum.isEmpty() &&
+                   subjectCode != null && !subjectCode.isEmpty()) {
+            scoreList = dao.searchBySubject(year, classNum, subjectCode);
+
+            // 科目コード → 科目名マップ
+            switch(subjectCode) {
+                case "A02": subjectName = "国語"; break;
+                case "B01": subjectName = "Java"; break;
+                default: subjectName = "指定なし"; break;
+            }
+            request.setAttribute("subjectCodeVisible", false);  // 科目コード列は非表示
+        } else {
+            // 入力不足などは空リスト返し、JSPで「該当なし」表示へ
+            scoreList = java.util.Collections.emptyList();
+            subjectName = "";
+            request.setAttribute("subjectCodeVisible", false);
         }
 
         request.setAttribute("scoreList", scoreList);
