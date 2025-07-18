@@ -1,6 +1,5 @@
 package dao;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,7 +15,7 @@ public class ScoreSearchDAO {
     private static final String USER = "sa";
     private static final String PASS = "";
 
-    // 科目別検索（1〜3回の得点をまとめる）
+    // ✅ 科目別検索（1〜3回の得点をまとめる）
     public List<ScoreResult> searchBySubject(String year, String classNum, String subjectCode) {
         List<ScoreResult> list = new ArrayList<>();
 
@@ -67,6 +66,7 @@ public class ScoreSearchDAO {
             ResultSet rs = ps.executeQuery();
             String currentStudentId = null;
             ScoreResult current = null;
+            boolean hasValidScore = false;
 
             while (rs.next()) {
                 String studentId = rs.getString("student_id");
@@ -88,6 +88,12 @@ public class ScoreSearchDAO {
                 if ("1".equals(times)) current.setScore1(score);
                 else if ("2".equals(times)) current.setScore2(score);
                 else if ("3".equals(times)) current.setScore3(score);
+
+                if (score != 0) hasValidScore = true;
+            }
+
+            if (!hasValidScore) {
+                list.clear();
             }
 
         } catch (SQLException e) {
@@ -97,7 +103,7 @@ public class ScoreSearchDAO {
         return list;
     }
 
-    // 学生番号による検索（科目コード・科目名・回数・点数をまとめて取得）
+    // ✅ 学生番号による検索（科目ごとに1～3回の点数をまとめる）
     public List<ScoreResult> searchByStudentId(String studentId) {
         List<ScoreResult> list = new ArrayList<>();
 
@@ -126,11 +132,11 @@ public class ScoreSearchDAO {
 
             String currentSubject = null;
             ScoreResult current = null;
+            boolean hasValidScore = false;
 
             while (rs.next()) {
                 String subject = rs.getString("subject_name");
                 if (subject == null) subject = "-";
-
                 String subjectCode = rs.getString("subject_code");
 
                 if (!subject.equals(currentSubject)) {
@@ -151,6 +157,12 @@ public class ScoreSearchDAO {
                 if ("1".equals(times)) current.setScore1(score);
                 else if ("2".equals(times)) current.setScore2(score);
                 else if ("3".equals(times)) current.setScore3(score);
+
+                if (score != 0) hasValidScore = true;
+            }
+
+            if (!hasValidScore) {
+                list.clear();
             }
 
         } catch (SQLException e) {
