@@ -26,7 +26,6 @@
         .logout-container {
             text-align: right;
             padding: 10px 20px;
-            background-color: transparent;
             font-size: 14px;
         }
 
@@ -154,9 +153,6 @@
     <div class="content">
         <div class="title">成績検索</div>
 
-        <c:if test="${not empty error}">
-            <div class="error">${error}</div>
-        </c:if>
         <c:if test="${not empty message}">
             <div class="message">${message}</div>
         </c:if>
@@ -237,6 +233,12 @@
                                 </tr>
                             </c:forEach>
                         </table>
+
+                        <!-- 🔽 エラーをここに表示 -->
+                        <c:if test="${not empty error}">
+                            <div class="error">${error}</div>
+                        </c:if>
+
                         <br>
                         <button type="submit">登録して終了</button>
                     </form>
@@ -245,6 +247,5 @@
         </c:if>
     </div>
 </div>
-
 </body>
 </html>

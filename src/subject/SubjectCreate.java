@@ -34,53 +34,60 @@ public class SubjectCreate extends HttpServlet {
     // 登録処理 (POST)
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    	    throws ServletException, IOException {
+        throws ServletException, IOException {
 
-    	    request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
-    	    String cd = request.getParameter("cd");
-    	    String name = request.getParameter("name");
-    	    String schoolCd = request.getParameter("school_cd");
+        String cd = request.getParameter("cd");
+        String name = request.getParameter("name");
+        String schoolCd = request.getParameter("school_cd");
 
-    	    if (cd == null || name == null || schoolCd == null) {
-    	        request.setAttribute("error", "入力値が不正です");
-    	        request.getRequestDispatcher("/subject/subject_create.jsp").forward(request, response);
-    	        return;
-    	    }
+        if (cd == null || name == null || schoolCd == null) {
+            request.setAttribute("error", "入力値が不正です");
+            request.getRequestDispatcher("/subject/subject_create.jsp").forward(request, response);
+            return;
+        }
 
-    	    cd = cd.trim();
-    	    name = name.trim();
-    	    schoolCd = schoolCd.trim();
+        cd = cd.trim();
+        name = name.trim();
+        schoolCd = schoolCd.trim();
 
-    	    if (cd.length() != 3) {
-    	        request.setAttribute("cd", cd);
-    	        request.setAttribute("name", name);
-    	        request.setAttribute("school_cd", schoolCd);
-    	        request.setAttribute("error", "科目コードは3文字で打ってください");
-    	        request.getRequestDispatcher("/subject/subject_create.jsp").forward(request, response);
-    	        return;
-    	    }
+        if (cd.length() != 3) {
+            request.setAttribute("cd", cd);
+            request.setAttribute("name", name);
+            request.setAttribute("school_cd", schoolCd);
+            request.setAttribute("error", "科目コードは3文字で打ってください");
+            request.getRequestDispatcher("/subject/subject_create.jsp").forward(request, response);
+            return;
+        }
 
-    	    SubjectDAO dao = new SubjectDAO();
+        if (!cd.matches("^[a-zA-Z0-9]+$")) {
+            request.setAttribute("cd", cd);
+            request.setAttribute("name", name);
+            request.setAttribute("school_cd", schoolCd);
+            request.setAttribute("error", "科目コードは半角英数字のみで入力してください");
+            request.getRequestDispatcher("/subject/subject_create.jsp").forward(request, response);
+            return;
+        }
 
-    	    if (dao.find(cd) != null) {
-    	        request.setAttribute("cd", cd);
-    	        request.setAttribute("name", name);
-    	        request.setAttribute("school_cd", schoolCd);
-    	        request.setAttribute("error", "科目コードが重複しています");
-    	        request.getRequestDispatcher("/subject/subject_create.jsp").forward(request, response);
-    	        return;
-    	    }
+        SubjectDAO dao = new SubjectDAO();
 
-    	    Subject subject = new Subject();
-    	    subject.setCode(cd);
-    	    subject.setName(name);
-    	    subject.setSchoolCode(schoolCd);
+        if (dao.find(cd) != null) {
+            request.setAttribute("cd", cd);
+            request.setAttribute("name", name);
+            request.setAttribute("school_cd", schoolCd);
+            request.setAttribute("error", "科目コードが重複しています");
+            request.getRequestDispatcher("/subject/subject_create.jsp").forward(request, response);
+            return;
+        }
 
-    	    dao.insert(subject);
+        Subject subject = new Subject();
+        subject.setCode(cd);
+        subject.setName(name);
+        subject.setSchoolCode(schoolCd);
 
-    	    request.getRequestDispatcher("/subject/SubjectCreateDone.action").forward(request, response);
-    	}
+        dao.insert(subject);
+
+        request.getRequestDispatcher("/subject/SubjectCreateDone.action").forward(request, response);
+    }
 }
-
-

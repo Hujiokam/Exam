@@ -74,6 +74,7 @@
     <th>クラス</th>
     <th>在学中</th>
     <th>変更</th>
+    <th>削除<th>
   </tr>
   <%
     List<Student> students = (List<Student>) request.getAttribute("students");
@@ -87,6 +88,7 @@
       <td><%= s.getClassNum() %></td>
       <td><%= s.isAttend() ? "○" : "×" %></td>
       <td><a href="<%= request.getContextPath() %>/kadai/StudentUpdateForm.action?no=<%= s.getNo() %>">変更</a></td>
+      <td><a href="<%= request.getContextPath() %>/student/StudentDelete.action?no=<%= s.getNo() %>&name=<%= java.net.URLEncoder.encode(s.getName(), "UTF-8") %>">削除</a></td>
 
     </tr>
   <%
