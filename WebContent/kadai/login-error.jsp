@@ -4,4 +4,5 @@
 
 エラーが発生しました。
 
+<p><a href="login-in.jsp" class="login-link">ログイン画面に戻る</a></p>
 <%@include file="../footer.html" %>

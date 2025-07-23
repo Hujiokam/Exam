@@ -251,7 +251,7 @@ form{
 
 /* 学生一覧テーブルのスタイル */
 .student-table {
-  width: calc(100% - 220px); /* 左メニュー分よけて幅いっぱいに */
+  width:100%; /* 左メニュー分よけて幅いっぱいに */
   margin-left: 220px;
   border-collapse: collapse;
   font-size: 16px;
