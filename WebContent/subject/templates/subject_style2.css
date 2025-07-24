@@ -131,8 +131,10 @@
 }
 
 .completion-message {
-      background-color: #8FBC8F;
-      margin-top: 40px;
+    background-color: #8FBC8F;
+    margin-top: 40px;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .button-group {
