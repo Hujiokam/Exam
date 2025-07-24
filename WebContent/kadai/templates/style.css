@@ -8,9 +8,9 @@
 }
 
 body {
-      text-align: center;
-      margin: 0 auto;
-      padding: 0 100px 100px 100px;
+	text-align: center;
+	margin: 0 auto;
+	padding: 0 100px 100px 100px;
 }
 
 footer {
@@ -24,54 +24,54 @@ footer {
 
 
 form{
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 0px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
+	max-width: 400px;
+	margin: 0 auto;
+  	padding: 0px;
+  	border: 1px solid #ccc;
+  	border-radius: 3px;
 }
 
 .login-form{
-      background-color: #ccc;
-      padding: 10px;
-      margin: 0;
+	background-color: #ccc;
+	padding: 10px;
+	margin: 0;
 }
 
 .input-box {
-      background-color: #D7EEFF;
-      width: 85%;
-      padding: 15px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
+	background-color: #D7EEFF;
+  	width: 85%;
+  	padding: 15px;
+  	margin: 8px 0;
+  	border: 1px solid #ccc;
+  	border-radius: 6px;
+  	box-sizing: border-box;
 }
 
 .login-button {
-      width: 30%;
-      padding: 10px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+	width: 30%;
+  	padding: 10px;
+  	background-color: #007bff;
+  	color: white;
+  	border: none;
+  	border-radius: 6px;
+  	cursor: pointer;
 }
 
 .logout-form{
-      background-color: #ccc;
+	background-color: #ccc;
 }
 
 .logout{
-      background-color: #669966;
+	background-color: #669966;
 }
 
 .login-link{
-      display: block;
-      text-align: left;
+	display: block;
+	text-align: left;
 }
 
 .user-info {
-      text-align: right;
+	text-align: right;
 }
 
 .header-title {
@@ -84,14 +84,14 @@ form{
 }
 
 .logout-log{
-      background-color: #99CC99;
+	background-color: #99CC99;
 }
 
 .logout-title{
-      text-align: left;
-      background-color: #EEEEEE;
-      font-size: 20px;
-      margin-bottom: 10px;
+	text-align: left;
+	background-color: #EEEEEE;
+	font-size: 20px;
+	margin-bottom: 10px;
 }
 
 /* 左メニュー（menu-tab.jsp） */
