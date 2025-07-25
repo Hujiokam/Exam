@@ -12,7 +12,7 @@
 <div class="subjectcrate-menu">
   <h2 class="student-heading">科目情報登録</h2>
 
-  <p class="completion-message">科目が登録されました</p>
+  <p class="completion-message">登録完了しました</p>
 
   <div class="button-group">
     <a href="<%= request.getContextPath() %>/subject/SubjectCreate.action" class="btn btn-back">戻る</a>
