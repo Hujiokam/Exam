@@ -10,18 +10,18 @@
 
   <form action="<%= request.getContextPath() %>/action/StudentUpdate.action" method="post" class="student-form">
 
+	    <!-- 入学年度（表示のみ、hiddenで送信） -->
+    <div class="form-group">
+      <label>入学年度</label>
+      <div>${student.ent_year}</div>
+      <input type="hidden" name="ent_year" value="${student.ent_year}">
+    </div>
+
     <!-- 学生番号（表示のみ、hiddenで送信） -->
     <div class="form-group">
       <label>学生番号</label>
       <div>${student.no}</div>
       <input type="hidden" name="no" value="${student.no}">
-    </div>
-
-    <!-- 入学年度（表示のみ、hiddenで送信） -->
-    <div class="form-group">
-      <label>入学年度</label>
-      <div>${student.ent_year}</div>
-      <input type="hidden" name="ent_year" value="${student.ent_year}">
     </div>
 
     <!-- 氏名（編集可） -->

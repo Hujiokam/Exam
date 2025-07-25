@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="<%= request.getContextPath()%>/kadai/templates/student_style.css">
 
 <div class="student-menu">
-  <h2 class="student-heading">学生管理</h2>
+  <h2 class="student-heading">学生情報登録</h2>
    <p class="label-success">${message}</p><br>
 
   <a href="<%= request.getContextPath() %>/action/studentinsert">戻る</a>
