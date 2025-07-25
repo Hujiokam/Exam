@@ -8,8 +8,22 @@
 <link rel="stylesheet" href="templates/style.css">
 <link rel="stylesheet" href="templates/score.css">
 
+<%
+  String actionType = request.getParameter("actionType");
+%>
+
 <div class="right-menu">
-  <div class="menu-heading">成績参照</div>
+  <div class="menu-heading">
+  <%
+    String title = "成績参照";
+    if ("searchBySubject".equals(actionType)) {
+      title = "成績一覧(科目)";
+    } else if ("searchByStudentNo".equals(actionType)) {
+      title = "成績一覧(学生)";
+    }
+  %>
+  <%= title %>
+</div>
 
   <div class="student-search-box">
     <form action="TestList.action" method="get" class="score-form">
@@ -82,8 +96,7 @@
 
   <!-- エラーメッセージの条件分岐 -->
   <%
-    boolean formSubmitted = request.getParameter("actionType") != null;
-    String actionType = request.getParameter("actionType");
+    boolean formSubmitted = actionType != null;
     boolean isSearchBySubject = "searchBySubject".equals(actionType);
     boolean isSearchByStudentNo = "searchByStudentNo".equals(actionType);
 
