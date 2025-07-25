@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="templates/score.css">
 
 <div class="right-menu">
-  <div class="menu-heading">成績一覧(科目)</div>
+  <div class="menu-heading">成績参照</div>
 
   <div class="student-search-box">
     <form action="TestList.action" method="get" class="score-form">
@@ -62,7 +62,7 @@
 
         <!-- 科目検索ボタン -->
         <div class="form-button">
-          <button type="submit" name="actionType" value="searchByStudentNo">検索</button>
+          <button type="submit" name="actionType" value="searchBySubject">検索</button>
         </div>
       </div> <!-- /.form-row -->
 
