@@ -168,7 +168,7 @@ public class TestList extends HttpServlet {
     request.setAttribute("studentNo", studentNo);
     request.setAttribute("scores", scores);
 
-    request.getRequestDispatcher("/kadai/testlist.jsp").forward(request, response);
+    request.getRequestDispatcher("/kadai/testlist-form.jsp").forward(request, response);
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
